@@ -36,6 +36,7 @@ df_datosConsumo.info(buf=buffer)
 info_strDC = buffer.getvalue() # DC = Datos Consumo
 
 # Imprimimos informacion
+st.markdown("**Informacion del dataframe Datos Consumo**")
 st.text(info_strDC)
 
 # Segunda Hoja
@@ -48,6 +49,7 @@ df_sociedades.info(buf=buffer)
 info_strS = buffer.getvalue() # S = Sociedades
 
 # Imprimimos informacion
+st.markdown("**Informacion del dataframe Sociedades**")
 st.text(info_strS)
 
 # Tercera Hoja
@@ -60,6 +62,7 @@ df_catsect.info(buf=buffer)
 info_strCS = buffer.getvalue() # CS = Cat Sectores
 
 # Imprimimos informacion
+st.markdown("**Informacion del dataframe Cat Sectores**")
 st.text(info_strCS)
 
 # Cuarta Hoja
@@ -72,12 +75,13 @@ df_tipoCliente.info(buf=buffer)
 info_strTC = buffer.getvalue() # TC = Tipo Cliente
 
 # Imprimimos informacion
+st.markdown("**Informacion del dataframe Tipo Clientes**")
 st.text(info_strTC)
 
 
 # Explicacion del procedimiento 
-st.subheader("Preprocesamiento de Datos")
-st.text("A continuacion se realizan los procedimientos especificados en el documento de la prueba>")
+st.header("Preprocesamiento de Datos")
+st.subheader("A continuacion se realizan los procedimientos especificados en el documento de la prueba: ")
 
 # --- Preprocesamiento Primera Hoja: Datos Consumo
 
@@ -104,7 +108,7 @@ df_datosConsumo.info(buf=buffer)
 info_strDC = buffer.getvalue() # DC = Datos Consumo
 
 # Imprimimos informacion ya preprocesada
-st.markdown("**La informacion de la tabla de Datos Consumo Procesada: **")
+st.markdown("**La informacion de la tabla de Datos Consumo Procesada:**")
 st.text(info_strDC)
 
 # ---- Preprocesamiento Segunda Hoja: Sociedades
@@ -117,7 +121,7 @@ df_sociedades.info(buf=buffer)
 info_strS = buffer.getvalue() # S = Sociedades
 
 # Imprimimos informacion
-st.markdown("**Informacion de la tabla de Sociedades Procesada: **")
+st.markdown("**Informacion de la tabla de Sociedades Procesada:**")
 st.text("En esta, mas adelante se va a necesitar realizar un merge, por lo que para que los nombre de las columnas coincidan se realizo el cambio")
 st.text(info_strS)
 
@@ -132,7 +136,7 @@ df_catsect.info(buf=buffer)
 info_strCS = buffer.getvalue() # CS = Cat Sectores
 
 # Imprimimos informacion
-st.markdown("**Informacion de la tabla de Cat Sectores Procesada: **")
+st.markdown("**Informacion de la tabla de Cat Sectores Procesada:**")
 st.text("En esta, mas adelante se va a necesitar realizar un merge, por lo que para que los nombre de las columnas coincidan se realizo el cambio")
 st.text(info_strCS)
 
@@ -146,7 +150,7 @@ df_tipoCliente.info(buf=buffer)
 info_strTC = buffer.getvalue() # TC = Tipo Cliente
 
 # Imprimimos informacion
-st.markdown("**Informacion de la tabla Tipo Cliente Procesada: **")
+st.markdown("**Informacion de la tabla Tipo Cliente Procesada:**")
 st.text("En esta, mas adelante se va a necesitar realizar un merge, por lo que para que los nombre de las columnas coincidan se realizo el cambio")
 st.text(info_strTC)
 
@@ -158,7 +162,7 @@ st.subheader("Realizamos la union de las tablas para su analisis con graficos")
 # Primera Union
 Sociedades_datosConsumo_merge = pd.merge(df_datosConsumo, df_sociedades, on='Sociedad', how='left')
 
-st.text("Primera Union Datos Consumo - Sociedades")
+st.markdown("**Primera Union Datos Consumo - Sociedades**")
 st.text("SE muestran las primeras 10 filas")
 
 st.dataframe(Sociedades_datosConsumo_merge.head(10))
@@ -166,7 +170,7 @@ st.dataframe(Sociedades_datosConsumo_merge.head(10))
 # Segunda Union
 df_unido = pd.merge(Sociedades_datosConsumo_merge, df_catsect, on='Codigo_sector', how='left')
 
-st.text("Realizamos la segunda union de Tablas Consumo - Cat Sectores")
+st.markdown("**Realizamos la segunda union de Tablas Consumo - Cat Sectores**")
 st.text("SE muestran las primeras 10 filas")
 
 st.dataframe(df_unido.head(10))
@@ -185,6 +189,7 @@ df_unido['IVA'].info(buf=buffer)
 info_strIVA = buffer.getvalue() # U = Unido
 
 # Imprimimos informacion
+st.markdown("**Informacion de la nueva columna IVA**")
 st.text(info_strIVA)
 
 # Calculo del Total
@@ -197,11 +202,12 @@ df_unido['Total'].info(buf=buffer)
 info_strT = buffer.getvalue() # T = Total
 
 # Imprimimos informacion
+st.markdown("**Informacion de la nueva columna Total**")
 st.text(info_strT)
 
 # Ultima Union para Tipo De Cliente
 
-st.text("Realizamos una ultima union para incluir el tipo de cliente en nuestro analisis")
+st.subheader("Realizamos una ultima union para incluir el tipo de cliente en nuestro analisis")
 
 df_final = pd.merge(df_unido, df_tipoCliente, on='Tipo_de_Cliente', how='left')
 
@@ -218,6 +224,7 @@ df_final.info(buf=buffer)
 info_strFinal = buffer.getvalue() # T = Total
 
 # Imprimimos informacion
+st.markdown("**Informacion de toto del dataframe unido y con el formato requerido**")
 st.text(info_strFinal)
 
     # --- Graficos --- #
@@ -259,4 +266,28 @@ ax.set_title('Distribución de Total por Tipo de Cliente', fontsize=16)
 st.header("Grafico de Pie")
 plt.axis('equal')  # Para que el pie se vea como un círculo
 st.pyplot(fig)
+
+# Notas Finales
+st.header("Notas Finales")
+st.markdown("**Relacion de Tablar**")
+st.markdown("Se me había pedido que hicera las relaciones del las 4 tablas, como el metodo grafico solo funciona en los motores de sql hice las relaciones con python para obtener la tabla final")
+st.markdown("En este caso se hizo para hacer las relaciones por eso se cambiaron las claves de las tablas secundarias para que coincidieran con la tabla principal.")
+st.markdown("**Tablax DAX**")
+st.markdown("Parece que las tablas DAX son un recurso de Power BI, por lo que los puntos relacionados con esa tarea no las pude realizar con todos los parametros pedidos")
+st.markdown("Pero en el caso para realizar la diferencia el codigo luciria de la siguiente manera:")
+st.markdown("```tabla['Diferencia'] = tabla['Consumo_Mes'] - tabla_anterior['Consumo_Mex']")
+st.markdown("Y para hacer la matriz de valores el codigo seria el siguiente:")
+st.markdown("```matriz = df[['Fecha_periodo', 'Sociedad', 'Consumo', 'Consumo anterior', 'Diferencia']]```")
+st.markdown("**Finalmente, los codigos que me piden en el correo**")
+st.markdown("Intercambio de variables: ")
+st.markdown("```x = 5```")
+st.markdown("```y = 10```")
+st.markdown("```x, y = y, x```")
+st.markdown("```print(f'Variable x = {x}, and variable y = {y} after swapping')``")
+st.markdown("Numero mas grande: ")
+st.markdown("```num1 = 10 ```")
+st.markdown("```num2 = 23```")
+st.markdown("```num3 = 50```")
+st.markdown("```largest = max(num1, num2, num3)```")
+st.markdown("```print(largest)```")
 
